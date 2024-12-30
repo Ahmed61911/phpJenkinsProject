@@ -15,8 +15,12 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo "Building the application..."
-                sh 'composer install'
+                /*echo "Building the application..."
+                sh 'composer install'*/
+                echo 'Starting Build Stage...'
+                bat 'php -v'
+                bat 'composer install'
+                echo 'Build Stage Completed!'
             }
         }
 
@@ -24,7 +28,7 @@ pipeline {
             steps {
                 echo "Building the Docker image..."
                 script {
-                    sh 'docker build -t ahmed61911/DevOpsProject .'
+                    bat 'docker build -t ahmed61911/DevOpsProject .'
                 }
             }
         }
@@ -34,8 +38,8 @@ pipeline {
                 echo "Pushing the Docker image to the registry..."
                 script {
                     withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPwd')]) {
-                        sh 'docker login -u ahmed61911 -p ${DockerHubPwd}'
-                        sh 'docker push ahmed61911/DevOpsProject'
+                        bat 'docker login -u ahmed61911 -p ${DockerHubPwd}'
+                        bat 'docker push ahmed61911/DevOpsProject'
                     }
                 }
             }
