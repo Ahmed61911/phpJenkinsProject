@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo "Building the Docker image..."
                 script {
-                    bat 'docker build -t ahmed61911/DevOpsProject .'
+                    bat 'docker build -t ahmed61911/dev-ops-project .'
                 }
             }
         }
