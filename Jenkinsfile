@@ -15,12 +15,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                /*echo "Building the application..."
-                sh 'composer install'*/
-                echo 'Starting Build Stage...'
-                bat 'php -v'
+                echo "Building the application..."
                 bat 'composer install'
-                echo 'Build Stage Completed!'
             }
         }
 
