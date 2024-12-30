@@ -34,7 +34,7 @@ pipeline {
                 echo "Pushing the Docker image to the registry..."
                 script {
                     withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPwd')]) {
-                        echo 'your_password : ${DockerHubPwd}'
+                        echo "your_password : ${DockerHubPwd}"
                         bat 'docker login -u ahmed61911 -p ${DockerHubPwd}'
                         bat 'docker push ahmed61911/dev-ops-project'
                     }
