@@ -5,7 +5,11 @@ pipeline {
         stage('Clone') {
             steps {
                 echo "Cloning the repository..."
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Ahmed61911/phpJenkinsProject']])
+                checkout scmGit(
+                    branches: [[name: '*/main']],
+                    extensions: [],
+                    userRemoteConfigs: [[url: 'https://github.com/Ahmed61911/phpJenkinsProject']]
+                )
             }
         }
 
@@ -30,10 +34,8 @@ pipeline {
                 echo "Pushing the Docker image to the registry..."
                 script {
                     withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPwd')]) {
-                        sh 'docker login -u ahmed61911 -p ${DockerHubpwd}'
-
-                        sh 'docker push ahmed61911'
-                        }
+                        sh 'docker login -u ahmed61911 -p ${DockerHubPwd}'
+                        sh 'docker push ahmed61911/DevOpsProject'
                     }
                 }
             }
