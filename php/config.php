@@ -1,3 +1,3 @@
 <?php
-$mysqli = new mysqli('localhost', 'root', '', 'registration');
+$mysqli = new mysqli('db', 'root', '', 'registration');
 ?>
