@@ -1,27 +1,38 @@
+version: "3.8"
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8030:80"
-    depends_on:
-      - db
-    environment:
-      - APP_ENV=local
-      - DB_HOST=db  # Define the DB host as 'db' (service name)
-      - DB_USER=root  # Use root user for MySQL
-      - DB_PASSWORD=  # Set a password for root user
-      - DB_NAME=registration  # Database name
-
-  db:
-    image: mysql:8.0
-    container_name: db_container
-    ports:
-      - "3306:3306"
-      
-    environment:
-      MYSQL_DATABASE: registration
-      MYSQL_USER: root
-      MYSQL_PASSWORD:  # Set a password for the root user
-      MYSQL_ROOT_PASSWORD: # Root password
+    www:
+        build: .
+        ports:
+            - "80:80"
+        volumes:
+            - :/var/www/html/
+        links:
+            - db
+        networks:
+            - default
+    db:
+        image: mysql:5.7.28
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: registration
+            MYSQL_USER: root
+            MYSQL_PASSWORD: 
+            MYSQL_ROOT_PASSWORD: 
+        volumes:
+            - :/docker-entrypoint-initdb.d
+            - persistent:/var/lib/mysql
+        networks:
+            - default
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links:
+            - db:db
+        ports:
+            - 82:80
+        environment:
+            MYSQL_USER: root
+            MYSQL_PASSWORD: 
+            MYSQL_ROOT_PASSWORD: 
+volumes:
+    persistent:
