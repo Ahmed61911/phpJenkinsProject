@@ -20,6 +20,7 @@ services:
     container_name: db_container
     ports:
       - "3306:3306"
+      
     environment:
       MYSQL_DATABASE: registration
       MYSQL_USER: root
