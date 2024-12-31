@@ -10,6 +10,11 @@ services:
       - db
     environment:
       - APP_ENV=local
+      - DB_HOST=db  # Define the DB host as 'db' (service name)
+      - DB_USER=root  # Use root user for MySQL
+      - DB_PASSWORD=  # Set a password for root user
+      - DB_NAME=registration  # Database name
+
   db:
     image: mysql:8.0
     container_name: db_container
@@ -18,5 +23,5 @@ services:
     environment:
       MYSQL_DATABASE: registration
       MYSQL_USER: root
-      MYSQL_PASSWORD: 
-      MYSQL_ROOT_PASSWORD: 
+      MYSQL_PASSWORD:  # Set a password for the root user
+      MYSQL_ROOT_PASSWORD: # Root password
