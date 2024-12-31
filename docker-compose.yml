@@ -5,18 +5,18 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
-    volumes:
-      - .:/var/www/html
+      - "8030:80"
+    depends_on:
+      - db
     environment:
       - APP_ENV=local
   db:
     image: mysql:8.0
+    container_name: db_container
     ports:
       - "3306:3306"
     environment:
       MYSQL_DATABASE: registration
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 
-      MYSQL_ROOT_PASSWORD: 
-      
+      MYSQL_USER: my_user
+      MYSQL_PASSWORD: my_password
+      MYSQL_ROOT_PASSWORD: root_password
